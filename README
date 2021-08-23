@@ -1,0 +1,28 @@
+To build the dynamic module for a particular tree-sitter language
+definition:
+
+1. Get parser.c distributed by tree-sitter language definition.
+2. Get grammar.js from language definition's source.
+3. put parser.c and grammar.js under project root, and run
+
+    make LANG=<language>
+
+where <language> is the lowercase language name (c, json, etc).
+
+By default, Make generates dylib on macOS, so on *nix, and dll on
+Windows. You can override SOEXT variable to change the extension.
+
+    make LANG=c SOEXT=so
+
+
+Tree-sitter is supposed to distribute parser.c files starting from
+v1.0. Before that, you need to build the parser.c file from source. To
+do that, clone the language repository, and run
+
+    npm install --save-dev tree-sitter-cli
+
+to install tree-sitter cli locally, and run
+
+    npx tree-sitter generate
+
+to generate parser.c. It should be in src directory.

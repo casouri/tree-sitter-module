@@ -1,0 +1,79 @@
+#include <string.h>
+#include <tree_sitter/parser.h>
+#include "emacs-module.h"
+
+int plugin_is_GPL_compatible;
+
+extern TSLanguage *tree_sitter_LANG(void);
+
+/* REF: http://diobla.info/blog-archive/modules-tut.html  */
+
+/* Return a USER_PTR to the language definition.  */
+static emacs_value
+Ftree_sitter_language
+(emacs_env *env, ptrdiff_t nargs, emacs_value args[], void *data)
+{
+  TSLanguage *language = tree_sitter_LANG();
+  return env->make_user_ptr (env, NULL, language);
+}
+
+/* Use this command to "dump" the file:
+   xxd -i < grammar.js > parser.c.dump
+ */
+static emacs_value
+Ftree_sitter_grammar
+(emacs_env *env, ptrdiff_t nargs, emacs_value args[], void *data)
+{
+  char grammar[] = {
+#include "grammar.js.dump"
+    , '\0' };
+  return env->make_string (env, grammar, strlen(grammar));
+}
+
+/* Bind NAME to FUN.  */
+static void
+bind_function (emacs_env *env, const char *name, emacs_value Sfun)
+{
+  /* Set the function cell of the symbol named NAME to SFUN using
+     the 'fset' function.  */
+
+  /* Convert the strings to symbols by interning them.  */
+  emacs_value Qfset = env->intern (env, "fset");
+  emacs_value Qsym = env->intern (env, name);
+
+  emacs_value args[] = { Qsym, Sfun };
+  env->funcall (env, Qfset, 2, args);
+}
+
+/* Provide FEATURE to Emacs.  */
+static void
+provide (emacs_env *env, const char *feature)
+{
+  /* Call 'provide' with FEATURE converted to a symbol.  */
+  emacs_value Qfeat = env->intern (env, feature);
+  emacs_value Qprovide = env->intern (env, "provide");
+  emacs_value args[] = { Qfeat };
+
+  env->funcall (env, Qprovide, 1, args);
+}
+
+int
+emacs_module_init (struct emacs_runtime *ert)
+{
+  emacs_env *env = ert->get_environment (ert);
+
+  emacs_value lang = env->make_function
+    (env, 0, 0, &Ftree_sitter_language,
+     "Return a language object.", NULL);
+
+    emacs_value grammar = env->make_function
+      (env, 0, 0, &Ftree_sitter_grammar,
+       "Return a language definition.", NULL);
+
+  bind_function (env, "tree-sitter-LANG", lang);
+  bind_function (env, "tree-sitter-LANG-grammar", grammar);
+  provide (env, "tree-sitter-LANG");
+
+  /* Return 0 to indicate module loaded successfully.  */
+  return 0;
+}
