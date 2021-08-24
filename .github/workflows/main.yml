@@ -39,4 +39,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: modules-linux.zip
+          draft: true
+          files: modules-*.zip

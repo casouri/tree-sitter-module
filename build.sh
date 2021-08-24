@@ -26,7 +26,7 @@ xxd -i < grammar.js > grammar.js.dump
 cc -c -I. *.c
 if test -f *.cc
 then
-    c++ -I. -c *.cc
+    c++ -fPIC -I. -c *.cc
     c++ -shared *.o -o "tree-sitter-${lang}.${soext}"
 else
     cc -shared *.o -o "tree-sitter-${lang}.${soext}"
