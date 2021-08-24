@@ -23,7 +23,7 @@ sed "s/LANG/${lang}/g" tree-sitter-lang.in > "tree-sitter-${lang}.c"
 xxd -i < grammar.js > grammar.js.dump
 
 # Build.
-cc -c *.c
+cc -c -I. *.c
 if test -f *.cc
 then
     c++ -c *.cc
