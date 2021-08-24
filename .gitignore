@@ -5,4 +5,5 @@ README
 !batch.sh
 !build.sh
 !.github/
+!.github/**
 !.gitignore
