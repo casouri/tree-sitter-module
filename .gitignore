@@ -1,0 +1,8 @@
+*
+README
+!emacs-module.h
+!tree-sitter-lang.in
+!batch.sh
+!build.sh
+!.github/
+!.gitignore
