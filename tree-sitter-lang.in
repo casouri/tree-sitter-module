@@ -4,7 +4,7 @@
 
 int plugin_is_GPL_compatible;
 
-extern TSLanguage *tree_sitter_LANG(void);
+extern TSLanguage *tree_sitter_LANG_C(void);
 
 /* REF: http://diobla.info/blog-archive/modules-tut.html  */
 
@@ -13,7 +13,7 @@ static emacs_value
 Ftree_sitter_language
 (emacs_env *env, ptrdiff_t nargs, emacs_value args[], void *data)
 {
-  TSLanguage *language = tree_sitter_LANG();
+  TSLanguage *language = tree_sitter_LANG_C();
   return env->make_user_ptr (env, NULL, language);
 }
 
