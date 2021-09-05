@@ -1,3 +1,9 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+I should clarify that this module is NOT a standalone tree-sitter
+module. It is supossed to be used with an upcoming tree-sitter
+intergration in Emacs core.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 To build the dynamic module for a particular tree-sitter language
 definition, run
 
