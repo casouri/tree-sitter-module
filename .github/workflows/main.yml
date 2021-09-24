@@ -32,12 +32,12 @@ jobs:
         uses: actions/checkout@v2
       - name: Build
         run: |
-          ./batch.sh
+          ./batch-new.sh
           export platform=$(echo ${{ runner.os }} | awk '{print tolower($0)}')
-          zip -r "modules-${platform}-x64.zip" dist
+          zip -r "libs-${platform}-x64.zip" dist
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           draft: true
           files: |
-            modules-*.zip
+            libs-*.zip
