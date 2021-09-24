@@ -18,3 +18,14 @@ The dynamic module will be in dist directory
 To build all modules at once, run
 
     ./batch.sh
+
+==================== Update ====================
+
+Now the tree-sitter intergration directly loads language definition
+libraries (instead of Emacs modules), to build a shared library, run
+
+    ./build-new.sh <language>
+
+To build all libraries at one, run
+
+    ./batch-new.sh
