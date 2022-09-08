@@ -3,9 +3,9 @@ README
 !emacs-module.h
 !tree-sitter-lang.in
 !batch.sh.old
-!batch-new.sh
+!batch.sh
 !build.sh.old
-!build-new.sh
+!build.sh
 !.github/
 !.github/**
 !.gitignore
