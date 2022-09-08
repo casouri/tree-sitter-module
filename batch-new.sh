@@ -8,6 +8,8 @@ languages=(
     'javascript'
     'css'
     'python'
+    'typescript'
+    'c-sharp'
 )
 
 for language in "${languages[@]}"

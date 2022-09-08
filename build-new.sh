@@ -9,15 +9,26 @@ else
     soext="so"
 fi
 
+echo "Building ${lang}"
+
 # Retrieve sources.
 git clone "https://github.com/tree-sitter/tree-sitter-${lang}.git" \
-    --depth 1
+    --depth 1 --quiet
+if [ "${lang}" == "typescript" ]
+then
+    lang="typescript/tsx"
+fi
 cp tree-sitter-lang.in "tree-sitter-${lang}/src"
 cp emacs-module.h "tree-sitter-${lang}/src"
 cp "tree-sitter-${lang}/grammar.js" "tree-sitter-${lang}/src"
 cd "tree-sitter-${lang}/src"
 
 # The dynamic module's c source.
+
+if [ "${lang}" == "typescript/tsx" ]
+then
+    lang="typescript"
+fi
 
 # Build.
 cc -c -I. parser.c
