@@ -2,14 +2,16 @@
 
 languages=(
     'c'
-    'json'
+    'cpp'
+    'css'
+    'c-sharp'
     'go'
     'html'
     'javascript'
-    'css'
+    'json'
     'python'
+    'rust'
     'typescript'
-    'c-sharp'
 )
 
 for language in "${languages[@]}"
