@@ -23,8 +23,6 @@ cp emacs-module.h "tree-sitter-${lang}/src"
 cp "tree-sitter-${lang}/grammar.js" "tree-sitter-${lang}/src"
 cd "tree-sitter-${lang}/src"
 
-# The dynamic module's c source.
-
 if [ "${lang}" == "typescript/tsx" ]
 then
     lang="typescript"
@@ -51,6 +49,12 @@ else
 fi
 
 # Copy out.
+
+if [ "${lang}" == "typescript" ]
+then
+    cp "libtree-sitter-${lang}.${soext}" ..
+    cd ..
+fi
 
 mkdir -p ../../dist
 cp "libtree-sitter-${lang}.${soext}" ../../dist
