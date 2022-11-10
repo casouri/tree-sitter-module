@@ -1,6 +1,17 @@
 #!/bin/bash
 
 lang=$1
+org="tree-sitter"
+
+if [ "${lang}" == "elixir" ]
+then
+    org="elixir-lang"
+fi
+
+if [ "${lang}" == "heex" ]
+then
+    org="phoenixframework"
+fi
 
 if [ $(uname) == "Darwin" ]
 then
@@ -12,7 +23,7 @@ fi
 echo "Building ${lang}"
 
 # Retrieve sources.
-git clone "https://github.com/tree-sitter/tree-sitter-${lang}.git" \
+git clone "https://github.com/${org}/tree-sitter-${lang}.git" \
     --depth 1 --quiet
 if [ "${lang}" == "typescript" ]
 then
