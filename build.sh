@@ -25,6 +25,7 @@ echo "Building ${lang}"
 # Retrieve sources.
 git clone "https://github.com/${org}/tree-sitter-${lang}.git" \
     --depth 1 --quiet
+
 if [ "${lang}" == "typescript" ]
 then
     lang="typescript/tsx"
@@ -61,7 +62,7 @@ fi
 
 # Copy out.
 
-if [ "${lang}" == "typescript" ]
+if [ "${lang}" == "tsx" ]
 then
     cp "libtree-sitter-${lang}.${soext}" ..
     cd ..
@@ -70,4 +71,10 @@ fi
 mkdir -p ../../dist
 cp "libtree-sitter-${lang}.${soext}" ../../dist
 cd ../../
-rm -rf "tree-sitter-${lang}"
+if [ "${lang}" == "tsx" ]
+then
+    rm -rf "tree-sitter-typescript"
+else
+    rm -rf "tree-sitter-${lang}"
+fi
+
