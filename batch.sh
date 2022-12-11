@@ -16,6 +16,11 @@ languages=(
     'heex'
 )
 
+if [ -e dist ]
+then
+    rm -rf dist
+fi
+
 for language in "${languages[@]}"
 do
     ./build.sh $language
