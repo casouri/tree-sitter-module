@@ -21,5 +21,5 @@ languages=(
 
 for language in "${languages[@]}"
 do
-    ./build.sh $language
+    ./build.sh "${language}"
 done

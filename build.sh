@@ -16,7 +16,7 @@ then
     org="phoenixframework"
 fi
 
-if [ $(uname) == "Darwin" ]
+if [ "$(uname)" == "Darwin" ]
 then
     soext="dylib"
 else
