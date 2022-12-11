@@ -22,13 +22,27 @@ fi
 
 echo "Building ${lang}"
 
+repo="${lang}"
+if [ "${lang}" == "tsx" ]
+then
+    repo="typescript"
+fi
+
 # Retrieve sources.
-git clone "https://github.com/${org}/tree-sitter-${lang}.git" \
-    --depth 1 --quiet
+if [ ! -e "tree-sitter-${repo}" ]
+then
+    git clone "https://github.com/${org}/tree-sitter-${repo}.git" \
+        --depth 1 --quiet
+fi
+
+if [ "${lang}" == "tsx" ]
+then
+    lang="typescript/tsx"
+fi
 
 if [ "${lang}" == "typescript" ]
 then
-    lang="typescript/tsx"
+    lang="typescript/typescript"
 fi
 cp tree-sitter-lang.in "tree-sitter-${lang}/src"
 cp emacs-module.h "tree-sitter-${lang}/src"
@@ -38,6 +52,11 @@ cd "tree-sitter-${lang}/src"
 if [ "${lang}" == "typescript/tsx" ]
 then
     lang="tsx"
+fi
+
+if [ "${lang}" == "typescript/typescript" ]
+then
+    lang="typescript"
 fi
 
 # Build.
@@ -63,6 +82,12 @@ fi
 # Copy out.
 
 if [ "${lang}" == "tsx" ]
+then
+    cp "libtree-sitter-${lang}.${soext}" ..
+    cd ..
+fi
+
+if [ "${lang}" == "typescript" ]
 then
     cp "libtree-sitter-${lang}.${soext}" ..
     cd ..

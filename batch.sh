@@ -11,6 +11,7 @@ languages=(
     'json'
     'python'
     'rust'
+    'tsx'
     'typescript'
     'elixir'
     'heex'
