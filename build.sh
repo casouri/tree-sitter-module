@@ -46,6 +46,40 @@ case "${lang}" in
         ;;
     "heex")
         org="phoenixframework"
+        ;;
+    "glsl")
+        org="theHamsta"
+        ;;
+    "make")
+        org="alemuller"
+        ;;
+    "markdown")
+        org="ikatyang"
+        ;;
+    "org")
+        org="milisims"
+        ;;
+    "perl")
+        org="ganezdragon"
+        ;;
+    "proto")
+        org="mitchellh"
+        ;;
+    "sql")
+        org="m-novikov"
+        ;;
+    "toml")
+        org="ikatyang"
+        ;;
+    "vhdl")
+        org="alemuller"
+        ;;
+    "wgsl")
+        org="mehmetoguzderin"
+        ;;
+    "yaml")
+        org="ikatyang"
+        ;;
 esac
 
 git clone "https://github.com/${org}/${repo}.git" \
