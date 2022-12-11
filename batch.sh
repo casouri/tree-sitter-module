@@ -5,18 +5,18 @@ set -e
 
 languages=(
     'c'
+    'c-sharp'
     'cpp'
     'css'
-    'c-sharp'
+    'elixir'
     'go'
+    'heex'
     'html'
     'javascript'
     'json'
     'python'
     'rust'
     'typescript'
-    'elixir'
-    'heex'
 )
 
 for language in "${languages[@]}"
