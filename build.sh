@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -u
+set -e
+
 lang=$1
 org="tree-sitter"
 

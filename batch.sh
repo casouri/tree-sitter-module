@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -u
+set -e
+
 languages=(
     'c'
     'cpp'
