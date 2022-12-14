@@ -1,17 +1,7 @@
 #!/bin/bash
 
 lang=$1
-org="tree-sitter"
-
-if [ "${lang}" == "elixir" ]
-then
-    org="elixir-lang"
-fi
-
-if [ "${lang}" == "heex" ]
-then
-    org="phoenixframework"
-fi
+topdir="$PWD"
 
 if [ $(uname) == "Darwin" ]
 then
@@ -22,26 +12,46 @@ fi
 
 echo "Building ${lang}"
 
-# Retrieve sources.
-git clone "https://github.com/${org}/tree-sitter-${lang}.git" \
+### Retrieve sources
+
+namespace="tree-sitter"
+repo="tree-sitter-${lang}"
+sourcedir="tree-sitter-${lang}/src"
+grammardir="tree-sitter-${lang}"
+
+case "${lang}" in
+    "dockerfile")
+        org="camdencheek"
+        ;;
+    "cmake")
+        org="uyha"
+        ;;
+    "typescript")
+        sourcedir="tree-sitter-typescript/typescript/src"
+        grammardir="tree-sitter-typescript/typescript"
+        ;;
+    "tsx")
+        repo="tree-sitter-typescript"
+        sourcedir="tree-sitter-typescript/tsx/src"
+        grammardir="tree-sitter-typescript/tsx"
+        ;;
+    "elixir")
+        org="elixir-lang"
+        ;;
+    "heex")
+        org="phoenixframework"
+esac
+
+git clone "https://github.com/${org}/${repo}.git" \
     --depth 1 --quiet
+cp "${grammardir}"/grammar.js "${sourcedir}"
+# We have to go into the source directory to compile, because some
+# C files refer to files like "../../common/scanner.h".
+cd "${sourcedir}"
 
-if [ "${lang}" == "typescript" ]
-then
-    lang="typescript/tsx"
-fi
-cp tree-sitter-lang.in "tree-sitter-${lang}/src"
-cp emacs-module.h "tree-sitter-${lang}/src"
-cp "tree-sitter-${lang}/grammar.js" "tree-sitter-${lang}/src"
-cd "tree-sitter-${lang}/src"
+### Build
 
-if [ "${lang}" == "typescript/tsx" ]
-then
-    lang="tsx"
-fi
-
-# Build.
-cc -c -I. parser.c
+cc -fPIC -c -I. parser.c
 # Compile scanner.c.
 if test -f scanner.c
 then
@@ -60,21 +70,9 @@ else
     cc -fPIC -shared *.o -o "libtree-sitter-${lang}.${soext}"
 fi
 
-# Copy out.
+### Copy out
 
-if [ "${lang}" == "tsx" ]
-then
-    cp "libtree-sitter-${lang}.${soext}" ..
-    cd ..
-fi
-
-mkdir -p ../../dist
-cp "libtree-sitter-${lang}.${soext}" ../../dist
-cd ../../
-if [ "${lang}" == "tsx" ]
-then
-    rm -rf "tree-sitter-typescript"
-else
-    rm -rf "tree-sitter-${lang}"
-fi
-
+mkdir -p "${topdir}/dist"
+cp "libtree-sitter-${lang}.${soext}" "${topdir}/dist"
+cd "${topdir}"
+rm -rf "${repo}"
