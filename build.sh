@@ -14,7 +14,7 @@ echo "Building ${lang}"
 
 ### Retrieve sources
 
-namespace="tree-sitter"
+org="tree-sitter"
 repo="tree-sitter-${lang}"
 sourcedir="tree-sitter-${lang}/src"
 grammardir="tree-sitter-${lang}"
