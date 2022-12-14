@@ -9,6 +9,9 @@ topdir="$PWD"
 if [ "$(uname)" == "Darwin" ]
 then
     soext="dylib"
+elif uname | grep -q "MINGW" > /dev/null
+then
+    soext="dll"
 else
     soext="so"
 fi
