@@ -1,9 +1,12 @@
 #!/bin/bash
 
+set -u
+set -e
+
 lang=$1
 topdir="$PWD"
 
-if [ $(uname) == "Darwin" ]
+if [ "$(uname)" == "Darwin" ]
 then
     soext="dylib"
 else

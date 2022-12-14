@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -u
+set -e
+
 languages=(
     'c'
     'cpp'
@@ -18,5 +21,5 @@ languages=(
 
 for language in "${languages[@]}"
 do
-    ./build.sh $language
+    ./build.sh "${language}"
 done
