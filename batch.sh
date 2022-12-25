@@ -4,6 +4,7 @@ set -u
 set -e
 
 languages=(
+    'bash'
     'c'
     'c-sharp'
     'cmake'
