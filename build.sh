@@ -41,6 +41,9 @@ case "${lang}" in
         sourcedir="tree-sitter-typescript/tsx/src"
         grammardir="tree-sitter-typescript/tsx"
         ;;
+    "elisp")
+        org="Wilfred"
+        ;;
     "elixir")
         org="elixir-lang"
         ;;
