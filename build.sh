@@ -101,7 +101,7 @@ sourcedir="${repodir}/${org}/${repo}"
 if [ -e "$sourcedir" ]
 then
     # Already cloned, check if needs to be updated and rebuilt.
-    git -C "${sourcedir}" remote update
+    git -C "${sourcedir}" fetch --quiet origin
     if [ -n "$(git -C "${sourcedir}" diff origin --numstat)" ]
     then
         git -C "${sourcedir}" merge --ff-only origin
