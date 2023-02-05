@@ -14,6 +14,7 @@ languages=(
     'elixir'
     'glsl'
     'go'
+    'go-mod'
     'heex'
     'html'
     'java'
