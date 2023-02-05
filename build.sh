@@ -96,7 +96,7 @@ case "${lang}" in
 esac
 
 # Local directory to clone parser repository to
-sourcedir="${repodir}/${org}/${repo}"
+sourcedir="${repodir}/tree-sitter-${lang}/${org}.${repo}"
 
 if [ -e "$sourcedir" ]
 then
