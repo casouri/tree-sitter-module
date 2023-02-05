@@ -107,7 +107,7 @@ then
         git -C "${sourcedir}" merge --ff-only origin
         # Removing the existing parser from the previous build to ensure if
         # building it fails we don't just keep using an out of date parser.
-        rm "${parserdir}/${langparser}"
+        rm -f "${parserdir}/${langparser}"
     elif [ -e "${parserdir}/${langparser}" ]
     then
         echo "Skipping ${lang}" >&2
