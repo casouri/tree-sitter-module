@@ -19,5 +19,9 @@ To build all modules at once, run
     ./batch.sh
 
 This gives you C, JSON, Go, HTML, Javascript, CSS, Python, Typescript
-(tsx), C# (csharp), C++ (cpp), Rust. More can be added to batch.sh
-unless its directory structure is not standard.
+(tsx), C# (csharp), C++ (cpp), Rust, etc, etc. More can be added to
+batch.sh unless its directory structure is not standard.
+
+You can enable parallel build with JOBS variable, like this:
+
+    JOBS=8 ./batch.sh
