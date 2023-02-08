@@ -82,12 +82,14 @@ case "${lang}" in
         ;;
     "go-mod")
         org="camdencheek"
+    "clojure")
+        org="dannyfreeman"
         ;;
 esac
 
 git clone "https://github.com/${org}/${repo}.git" \
     --depth 1 --quiet
-cp "${grammardir}"/grammar.js "${sourcedir}"
+# cp "${grammardir}"/grammar.js "${sourcedir}"
 # We have to go into the source directory to compile, because some
 # C files refer to files like "../../common/scanner.h".
 cd "${sourcedir}"
