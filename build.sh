@@ -3,10 +3,7 @@
 set -u
 set -e
 
-lang=$1
-topdir="$PWD"
-
-if [ "$(uname)" == "Darwin" ]
+if [ "$(uname)" = "Darwin" ]
 then
     soext="dylib"
 elif uname | grep -q "MINGW" > /dev/null
@@ -16,14 +13,30 @@ else
     soext="so"
 fi
 
+# Target language to build a parser for
+lang=$1
+# Base directory containing this project
+topdir="$PWD"
+# Base directory to clone the parser repository to
+repodir="$topdir/repos"
+# Base directory to copy parser libraries to after building
+parserdir="$topdir/dist"
+# Filename of the parser library for ${lang}
+langparser="libtree-sitter-$lang.$soext"
+
 echo "Building ${lang}"
 
 ### Retrieve sources
 
+# GitHub organisation hosting the parser for ${lang}
 org="tree-sitter"
+# GitHub repository in ${org} hosting the parser for ${lang}
 repo="tree-sitter-${lang}"
-sourcedir="tree-sitter-${lang}/src"
-grammardir="tree-sitter-${lang}"
+
+# Subdirectory within ${sourcedir} containing parser source files for ${lang}
+parsersubdir="src"
+# Subdirectory within ${sourcedir} containing a grammar.js file for ${lang}
+grammarsubdir=""
 
 case "${lang}" in
     "dockerfile")
@@ -33,13 +46,13 @@ case "${lang}" in
         org="uyha"
         ;;
     "typescript")
-        sourcedir="tree-sitter-typescript/typescript/src"
-        grammardir="tree-sitter-typescript/typescript"
+        parsersubdir="typescript/src"
+        grammarsubdir="typescript"
         ;;
     "tsx")
         repo="tree-sitter-typescript"
-        sourcedir="tree-sitter-typescript/tsx/src"
-        grammardir="tree-sitter-typescript/tsx"
+        parsersubdir="tsx/src"
+        grammarsubdir="tsx"
         ;;
     "elixir")
         org="elixir-lang"
@@ -85,12 +98,37 @@ case "${lang}" in
         ;;
 esac
 
-git clone "https://github.com/${org}/${repo}.git" \
-    --depth 1 --quiet
-cp "${grammardir}"/grammar.js "${sourcedir}"
+# Local directory to clone parser repository to
+sourcedir="${repodir}/tree-sitter-${lang}/${org}.${repo}"
+
+if [ -e "$sourcedir" ]
+then
+    # Already cloned, check if needs to be updated and rebuilt.
+    git -C "${sourcedir}" fetch --quiet origin
+    if [ -n "$(git -C "${sourcedir}" diff origin --numstat)" ]
+    then
+        git -C "${sourcedir}" merge --ff-only origin
+        # Removing the existing parser from the previous build to ensure if
+        # building it fails we don't just keep using an out of date parser.
+        rm -f "${parserdir}/${langparser}"
+    elif [ -e "${parserdir}/${langparser}" ]
+    then
+        echo "Skipping ${lang}" >&2
+        exit 0
+    fi
+else
+    git clone "https://github.com/${org}/${repo}.git" --depth 1 --quiet "${sourcedir}"
+fi
+
 # We have to go into the source directory to compile, because some
 # C files refer to files like "../../common/scanner.h".
-cd "${sourcedir}"
+cd "${sourcedir}/${parsersubdir}"
+
+# Ensure the grammar.js file exists for the parser build.
+if ! [ -e grammar.js ]
+then
+    ln -sf "${sourcedir}/${grammarsubdir}"/grammar.js ./
+fi
 
 ### Build
 
@@ -108,14 +146,12 @@ fi
 # Link.
 if test -f scanner.cc
 then
-    c++ -fPIC -shared *.o -o "libtree-sitter-${lang}.${soext}"
+    c++ -fPIC -shared *.o -o "${langparser}"
 else
-    cc -fPIC -shared *.o -o "libtree-sitter-${lang}.${soext}"
+    cc -fPIC -shared *.o -o "${langparser}"
 fi
 
 ### Copy out
 
-mkdir -p "${topdir}/dist"
-cp "libtree-sitter-${lang}.${soext}" "${topdir}/dist"
-cd "${topdir}"
-rm -rf "${repo}"
+mkdir -p "${parserdir}"
+cp "${langparser}" "${parserdir}"
