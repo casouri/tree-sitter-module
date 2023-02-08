@@ -63,7 +63,7 @@ case "${lang}" in
         org="mitchellh"
         ;;
     "sql")
-        org="m-novikov"
+        org="DerekStride"
         ;;
     "toml")
         org="ikatyang"
@@ -79,6 +79,7 @@ case "${lang}" in
         ;;
     "go-mod")
         org="camdencheek"
+        ;;
     "clojure")
         org="dannyfreeman"
         ;;
