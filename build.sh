@@ -80,12 +80,9 @@ case "${lang}" in
     "yaml")
         org="ikatyang"
         ;;
-    "gomod")
-	org="camdencheek"
-	repo="tree-sitter-go-mod"
-	sourcedir="tree-sitter-go-mod/src"
-	grammardir="tree-sitter-go-mod"
-	;;
+    "go-mod")
+        org="camdencheek"
+        ;;
 esac
 
 git clone "https://github.com/${org}/${repo}.git" \
