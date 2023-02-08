@@ -2,6 +2,7 @@
 README
 !emacs-module.h
 !tree-sitter-lang.in
+!languages.txt
 !batch.sh.old
 !batch.sh
 !build.sh.old
