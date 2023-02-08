@@ -23,7 +23,6 @@ echo "Building ${lang}"
 org="tree-sitter"
 repo="tree-sitter-${lang}"
 sourcedir="tree-sitter-${lang}/src"
-grammardir="tree-sitter-${lang}"
 
 case "${lang}" in
     "dockerfile")
@@ -34,12 +33,10 @@ case "${lang}" in
         ;;
     "typescript")
         sourcedir="tree-sitter-typescript/typescript/src"
-        grammardir="tree-sitter-typescript/typescript"
         ;;
     "tsx")
         repo="tree-sitter-typescript"
         sourcedir="tree-sitter-typescript/tsx/src"
-        grammardir="tree-sitter-typescript/tsx"
         ;;
     "elixir")
         org="elixir-lang"
@@ -89,7 +86,6 @@ esac
 
 git clone "https://github.com/${org}/${repo}.git" \
     --depth 1 --quiet
-# cp "${grammardir}"/grammar.js "${sourcedir}"
 # We have to go into the source directory to compile, because some
 # C files refer to files like "../../common/scanner.h".
 cd "${sourcedir}"
