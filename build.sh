@@ -22,7 +22,7 @@ echo "Building ${lang}"
 
 org="tree-sitter"
 repo="tree-sitter-${lang}"
-sourcedir="tree-sitter-${lang}/src"
+sourcedir="src"
 
 case "${lang}" in
     "dockerfile")
@@ -32,11 +32,11 @@ case "${lang}" in
         org="uyha"
         ;;
     "typescript")
-        sourcedir="tree-sitter-typescript/typescript/src"
+        sourcedir="typescript/src"
         ;;
     "tsx")
         repo="tree-sitter-typescript"
-        sourcedir="tree-sitter-typescript/tsx/src"
+        sourcedir="tsx/src"
         ;;
     "elixir")
         org="elixir-lang"
@@ -86,10 +86,10 @@ case "${lang}" in
 esac
 
 git clone "https://github.com/${org}/${repo}.git" \
-    --depth 1 --quiet
+    --depth 1 --quiet "${lang}"
 # We have to go into the source directory to compile, because some
 # C files refer to files like "../../common/scanner.h".
-cd "${sourcedir}"
+cd "${lang}/${sourcedir}"
 
 ### Build
 
@@ -117,4 +117,4 @@ fi
 mkdir -p "${topdir}/dist"
 cp "libtree-sitter-${lang}.${soext}" "${topdir}/dist"
 cd "${topdir}"
-rm -rf "${repo}"
+rm -rf "${lang}"
