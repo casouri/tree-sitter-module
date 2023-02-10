@@ -7,6 +7,7 @@ languages=(
     'bash'
     'c'
     'c-sharp'
+    'clojure'
     'cmake'
     'cpp'
     'css'
