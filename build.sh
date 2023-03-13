@@ -90,9 +90,12 @@ esac
 
 if [ $branch ]
 then
-    git clone --branch "${branch}" --quiet "https://github.com/${org}/${repo}.git" "${lang}"
+    git clone "https://github.com/${org}/${repo}.git" \
+	--branch "${branch}" --quiet "${lang}"
 else
-    git clone  --quiet --depth 1 "https://github.com/${org}/${repo}.git" "${lang}"
+    git clone "https://github.com/${org}/${repo}.git" \
+	--depth 1 --quiet "${lang}"
+
 fi
 
 
