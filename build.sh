@@ -23,6 +23,7 @@ echo "Building ${lang}"
 org="tree-sitter"
 repo="tree-sitter-${lang}"
 sourcedir="src"
+branch=""
 
 case "${lang}" in
     "dockerfile")
@@ -64,6 +65,7 @@ case "${lang}" in
         ;;
     "sql")
         org="DerekStride"
+        branch="gh-pages"
         ;;
     "toml")
         org="ikatyang"
@@ -85,8 +87,14 @@ case "${lang}" in
         ;;
 esac
 
-git clone "https://github.com/${org}/${repo}.git" \
-    --depth 1 --quiet "${lang}"
+if [ -z "$branch" ]
+then
+    git clone "https://github.com/${org}/${repo}.git" \
+       --depth 1 --quiet "${lang}"
+else
+    git clone "https://github.com/${org}/${repo}.git" \
+        --single-branch --branch "${branch}" --quiet "${lang}"
+fi
 # We have to go into the source directory to compile, because some
 # C files refer to files like "../../common/scanner.h".
 cd "${lang}/${sourcedir}"
