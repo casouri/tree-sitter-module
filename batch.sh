@@ -12,6 +12,7 @@ languages=(
     'cpp'
     'css'
     'dockerfile'
+    'elisp'
     'elixir'
     'glsl'
     'go'

@@ -38,6 +38,9 @@ case "${lang}" in
         repo="tree-sitter-typescript"
         sourcedir="tsx/src"
         ;;
+    "elisp")
+        org="Wilfred"
+        ;;
     "elixir")
         org="elixir-lang"
         ;;
