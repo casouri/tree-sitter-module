@@ -62,6 +62,9 @@ case "${lang}" in
     "proto")
         org="mitchellh"
         ;;
+    "surface")
+        org="connorlay"
+        ;;
     "sql")
         org="DerekStride"
         ;;
