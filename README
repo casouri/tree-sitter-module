@@ -1,10 +1,11 @@
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-I should clarify that this module is NOT a standalone tree-sitter
-module. It is supposed to be used with an upcoming tree-sitter
-integration in Emacs core.
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+This is an unofficial script that builds tree-sitter grammars.
+Tree-sitter language grammars take the form of dynamic libraries.
+Emacs 29 comes with tree-sitter support, and recognizes the language
+grammar built by this script.
 
-To build the language definition for a particular language, run
+You need git and a C/C++ compiler to build the grammars.
+
+To build the language grammar for a particular language, run
 
     ./build.sh <language>
 
@@ -12,16 +13,17 @@ e.g.,
 
     ./build.sh html
 
-The dynamic module will be in dist directory
+The dynamic library will be in directory /dist.
 
 To build all modules at once, run
 
     ./batch.sh
 
 This gives you C, JSON, Go, HTML, Javascript, CSS, Python, Typescript
-(tsx), C# (csharp), C++ (cpp), Rust, etc, etc. More can be added to
-batch.sh unless its directory structure is not standard.
+(tsx), C# (csharp), C++ (cpp), Rust, etc, etc. The complete list is in
+batch.sh. If you don't see your favoriate language in the list, submit
+a PR.
 
-You can enable parallel build with JOBS variable, like this:
+You can enable parallel build with the JOBS variable, like this:
 
     JOBS=8 ./batch.sh
