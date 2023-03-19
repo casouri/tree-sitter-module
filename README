@@ -1,9 +1,8 @@
-This is an unofficial script that builds tree-sitter grammars.
-Tree-sitter language grammars take the form of dynamic libraries.
-Emacs 29 comes with tree-sitter support, and recognizes the language
-grammar built by this script.
+This is an unofficial script that builds tree-sitter grammars that can
+be used by Emacs 29 and above.
 
-You need git and a C/C++ compiler to build the grammars.
+Tree-sitter language grammars are just dynamic library object files.
+You need git and a C/C++ compiler to build them.
 
 To build the language grammar for a particular language, run
 
