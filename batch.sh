@@ -11,6 +11,7 @@ languages=(
     'cmake'
     'cpp'
     'css'
+    'scss'
     'dockerfile'
     'elisp'
     'elixir'

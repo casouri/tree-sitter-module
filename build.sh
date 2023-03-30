@@ -91,6 +91,9 @@ case "${lang}" in
     "clojure")
         org="dannyfreeman"
         ;;
+    "scss")
+        org="serenadeai"
+        ;;
 esac
 
 if [ -z "$branch" ]
