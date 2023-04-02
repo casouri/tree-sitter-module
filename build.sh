@@ -94,6 +94,10 @@ case "${lang}" in
     "scss")
         org="serenadeai"
         ;;
+    "janet-simple")
+        org="sogaiu"
+        ;;
+
 esac
 
 if [ -z "$branch" ]

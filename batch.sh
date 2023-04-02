@@ -20,6 +20,7 @@ languages=(
     'go-mod'
     'heex'
     'html'
+    'janet-simple'
     'java'
     'javascript'
     'json'
