@@ -42,6 +42,7 @@ languages=(
     'vhdl'
     'wgsl'
     'yaml'
+    'dart'
 )
 
 if [ -z "${JOBS:-}" ]

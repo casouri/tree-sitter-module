@@ -97,6 +97,9 @@ case "${lang}" in
     "janet-simple")
         org="sogaiu"
         ;;
+    "dart")
+        org="ast-grep"
+        ;;
 
 esac
 
