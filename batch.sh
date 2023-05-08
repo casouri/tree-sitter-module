@@ -43,6 +43,7 @@ languages=(
     'wgsl'
     'yaml'
     'dart'
+    'souffle'
 )
 
 if [ -z "${JOBS:-}" ]
