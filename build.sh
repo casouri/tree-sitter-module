@@ -100,6 +100,9 @@ case "${lang}" in
     "dart")
         org="ast-grep"
         ;;
+    "souffle")
+        org="chaosite"
+        ;;
     "kotlin")
         org="fwcd"
         ;;
