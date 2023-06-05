@@ -100,6 +100,8 @@ case "${lang}" in
     "dart")
         org="ast-grep"
         ;;
+    "kotlin")
+        org="fwcd"
 
 esac
 
