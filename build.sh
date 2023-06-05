@@ -102,6 +102,7 @@ case "${lang}" in
         ;;
     "kotlin")
         org="fwcd"
+        ;;
 
 esac
 
