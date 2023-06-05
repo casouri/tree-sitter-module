@@ -103,6 +103,9 @@ case "${lang}" in
     "souffle")
         org="chaosite"
         ;;
+    "kotlin")
+        org="fwcd"
+        ;;
 
 esac
 
