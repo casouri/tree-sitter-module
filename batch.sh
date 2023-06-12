@@ -33,6 +33,7 @@ languages=(
     'python'
     'ruby'
     'rust'
+    'scala'
     'surface'
     'sql'
     'toml'
