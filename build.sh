@@ -106,6 +106,9 @@ case "${lang}" in
     "kotlin")
         org="fwcd"
         ;;
+    "lua")
+        org="MunifTanjim"
+        ;;
 
 esac
 
