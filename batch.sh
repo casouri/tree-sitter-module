@@ -47,6 +47,7 @@ languages=(
     'dart'
     'souffle'
     'kotlin'
+    'zig'
 )
 
 if [ -z "${JOBS:-}" ]

@@ -109,6 +109,9 @@ case "${lang}" in
     "lua")
         org="MunifTanjim"
         ;;
+    "zig")
+        org="maxxnino"
+	;;
 
 esac
 
