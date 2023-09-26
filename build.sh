@@ -27,6 +27,9 @@ sourcedir="src"
 branch=""
 
 case "${lang}" in
+    "typst")
+        org="uben0"
+        ;;
     "dockerfile")
         org="camdencheek"
         ;;
