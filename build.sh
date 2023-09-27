@@ -93,7 +93,7 @@ case "${lang}" in
         org="camdencheek"
         ;;
     "clojure")
-        org="dannyfreeman"
+        org="sogaiu"
         ;;
     "scss")
         org="serenadeai"
