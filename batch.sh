@@ -40,6 +40,7 @@ languages=(
     'toml'
     'tsx'
     'typescript'
+    'typst'
     'verilog'
     'vhdl'
     'wgsl'
@@ -48,6 +49,7 @@ languages=(
     'souffle'
     'kotlin'
     'zig'
+    'bison'
 )
 
 if [ -z "${JOBS:-}" ]

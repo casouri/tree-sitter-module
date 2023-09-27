@@ -20,12 +20,16 @@ echo "Building ${lang}"
 
 ### Retrieve sources
 
+site="https://github.com"
 org="tree-sitter"
 repo="tree-sitter-${lang}"
 sourcedir="src"
 branch=""
 
 case "${lang}" in
+    "typst")
+        org="uben0"
+        ;;
     "dockerfile")
         org="camdencheek"
         ;;
@@ -89,7 +93,7 @@ case "${lang}" in
         org="camdencheek"
         ;;
     "clojure")
-        org="dannyfreeman"
+        org="sogaiu"
         ;;
     "scss")
         org="serenadeai"
@@ -111,16 +115,19 @@ case "${lang}" in
         ;;
     "zig")
         org="maxxnino"
-	;;
-
+        ;;
+    "bison")
+        site="https://gitlab.com"
+        org="btuin2"
+        ;;
 esac
 
 if [ -z "$branch" ]
 then
-    git clone "https://github.com/${org}/${repo}.git" \
+    git clone "${site}/${org}/${repo}.git" \
        --depth 1 --quiet "${lang}"
 else
-    git clone "https://github.com/${org}/${repo}.git" \
+    git clone "${site}/${org}/${repo}.git" \
         --single-branch --branch "${branch}" --quiet "${lang}"
 fi
 # We have to go into the source directory to compile, because some
