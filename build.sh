@@ -113,6 +113,9 @@ case "${lang}" in
     "lua")
         org="MunifTanjim"
         ;;
+    "zig")
+        org="maxxnino"
+        ;;
     "bison")
         site="https://gitlab.com"
         org="btuin2"

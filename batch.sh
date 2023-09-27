@@ -48,6 +48,7 @@ languages=(
     'dart'
     'souffle'
     'kotlin'
+    'zig'
     'bison'
 )
 
