@@ -40,6 +40,7 @@ languages=(
     'toml'
     'tsx'
     'typescript'
+    'typst'
     'verilog'
     'vhdl'
     'wgsl'
