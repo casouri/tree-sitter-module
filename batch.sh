@@ -50,6 +50,7 @@ languages=(
     'kotlin'
     'zig'
     'bison'
+    'erlang'
 )
 
 if [ -z "${JOBS:-}" ]
