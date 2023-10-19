@@ -120,6 +120,9 @@ case "${lang}" in
         site="https://gitlab.com"
         org="btuin2"
         ;;
+    "verilog")
+        org="gmlarumbe"
+        ;;
 esac
 
 if [ -z "$branch" ]
