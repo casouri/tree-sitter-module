@@ -123,6 +123,9 @@ case "${lang}" in
     "verilog")
         org="gmlarumbe"
         ;;
+    "erlang")
+        org="WhatsApp"
+        ;;
 esac
 
 if [ -z "$branch" ]
