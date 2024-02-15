@@ -89,8 +89,9 @@ case "${lang}" in
     "yaml")
         org="ikatyang"
         ;;
-    "go-mod")
+    "gomod")
         org="camdencheek"
+        repo="tree-sitter-go-mod"
         ;;
     "clojure")
         org="sogaiu"

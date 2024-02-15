@@ -17,7 +17,7 @@ languages=(
     'elixir'
     'glsl'
     'go'
-    'go-mod'
+    'gomod'
     'heex'
     'html'
     'janet-simple'
