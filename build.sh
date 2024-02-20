@@ -55,6 +55,9 @@ case "${lang}" in
     "glsl")
         org="theHamsta"
         ;;
+    "magik")
+        org="krn-robin"
+        ;;
     "make")
         org="alemuller"
         ;;

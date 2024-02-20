@@ -26,6 +26,7 @@ languages=(
     'json'
     'julia'
     'lua'
+    'magik'
     'make'
     'markdown'
     'org'
