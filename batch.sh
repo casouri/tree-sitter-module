@@ -30,6 +30,7 @@ languages=(
     'markdown'
     'org'
     'perl'
+    'php'
     'proto'
     'python'
     'ruby'
