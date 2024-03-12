@@ -127,6 +127,9 @@ case "${lang}" in
     "erlang")
         org="WhatsApp"
         ;;
+    "vala")
+        org="vala-lang"
+        ;;
 esac
 
 if [ -z "$branch" ]

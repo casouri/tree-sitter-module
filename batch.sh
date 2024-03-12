@@ -51,6 +51,7 @@ languages=(
     'zig'
     'bison'
     'erlang'
+    'vala'
 )
 
 if [ -z "${JOBS:-}" ]
