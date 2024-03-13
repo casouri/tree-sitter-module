@@ -27,21 +27,21 @@ sourcedir="src"
 branch=""
 
 case "${lang}" in
-    "typst")
-        org="uben0"
+    "bison")
+        site="https://gitlab.com"
+        org="btuin2"
         ;;
-    "dockerfile")
-        org="camdencheek"
+    "clojure")
+        org="sogaiu"
         ;;
     "cmake")
         org="uyha"
         ;;
-    "typescript")
-        sourcedir="typescript/src"
+    "dart")
+        org="ast-grep"
         ;;
-    "tsx")
-        repo="tree-sitter-typescript"
-        sourcedir="tsx/src"
+    "dockerfile")
+        org="camdencheek"
         ;;
     "elisp")
         org="Wilfred"
@@ -49,11 +49,27 @@ case "${lang}" in
     "elixir")
         org="elixir-lang"
         ;;
-    "heex")
-        org="phoenixframework"
+    "erlang")
+        org="WhatsApp"
         ;;
     "glsl")
         org="theHamsta"
+        ;;
+    "gomod")
+        org="camdencheek"
+        repo="tree-sitter-go-mod"
+        ;;
+    "heex")
+        org="phoenixframework"
+        ;;
+    "janet-simple")
+        org="sogaiu"
+        ;;
+    "kotlin")
+        org="fwcd"
+        ;;
+    "lua")
+        org="MunifTanjim"
         ;;
     "make")
         org="alemuller"
@@ -70,15 +86,37 @@ case "${lang}" in
     "proto")
         org="mitchellh"
         ;;
-    "surface")
-        org="connorlay"
+    "scss")
+        org="serenadeai"
+        ;;
+    "souffle")
+        org="chaosite"
         ;;
     "sql")
         org="DerekStride"
         branch="gh-pages"
         ;;
+    "surface")
+        org="connorlay"
+        ;;
     "toml")
         org="ikatyang"
+        ;;
+    "tsx")
+        repo="tree-sitter-typescript"
+        sourcedir="tsx/src"
+        ;;
+    "typescript")
+        sourcedir="typescript/src"
+        ;;
+    "typst")
+        org="uben0"
+        ;;
+    "vala")
+        org="vala-lang"
+        ;;
+    "verilog")
+        org="gmlarumbe"
         ;;
     "vhdl")
         org="alemuller"
@@ -89,46 +127,8 @@ case "${lang}" in
     "yaml")
         org="ikatyang"
         ;;
-    "gomod")
-        org="camdencheek"
-        repo="tree-sitter-go-mod"
-        ;;
-    "clojure")
-        org="sogaiu"
-        ;;
-    "scss")
-        org="serenadeai"
-        ;;
-    "janet-simple")
-        org="sogaiu"
-        ;;
-    "dart")
-        org="ast-grep"
-        ;;
-    "souffle")
-        org="chaosite"
-        ;;
-    "kotlin")
-        org="fwcd"
-        ;;
-    "lua")
-        org="MunifTanjim"
-        ;;
     "zig")
         org="maxxnino"
-        ;;
-    "bison")
-        site="https://gitlab.com"
-        org="btuin2"
-        ;;
-    "verilog")
-        org="gmlarumbe"
-        ;;
-    "erlang")
-        org="WhatsApp"
-        ;;
-    "vala")
-        org="vala-lang"
         ;;
 esac
 
