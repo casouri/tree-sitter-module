@@ -26,6 +26,8 @@ repo="tree-sitter-${lang}"
 sourcedir="src"
 branch=""
 
+# Please keep this case analysis sorted alphabetically for ease of maintenance and readability. Note
+# that you may want to add a corresponding entry to the `languages` array in the batch.sh script.
 case "${lang}" in
     "bison")
         site="https://gitlab.com"

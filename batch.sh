@@ -3,6 +3,8 @@
 set -u
 set -e
 
+# List of supported languages. Please keep this array sorted alphabetically for ease of maintenance
+# and readability.
 languages=(
     'bash'
     'bison'
