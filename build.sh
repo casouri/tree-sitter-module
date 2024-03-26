@@ -148,23 +148,23 @@ cd "${lang}/${sourcedir}"
 
 ### Build
 
-cc -fPIC -c -I. parser.c
+cc -march=native -O3 -fPIC -c -I. parser.c
 # Compile scanner.c.
 if test -f scanner.c
 then
-    cc -fPIC -c -I. scanner.c
+    cc -march=native -O3 -fPIC -c -I. scanner.c
 fi
 # Compile scanner.cc.
 if test -f scanner.cc
 then
-    c++ -fPIC -I. -c scanner.cc
+    c++ -march=native -O3 -fPIC -I. -c scanner.cc
 fi
 # Link.
 if test -f scanner.cc
 then
-    c++ -fPIC -shared *.o -o "libtree-sitter-${lang}.${soext}"
+    c++ -march=native -O3 -fPIC -shared *.o -o "libtree-sitter-${lang}.${soext}"
 else
-    cc -fPIC -shared *.o -o "libtree-sitter-${lang}.${soext}"
+    cc -march=native -O3 -fPIC -shared *.o -o "libtree-sitter-${lang}.${soext}"
 fi
 
 ### Copy out
