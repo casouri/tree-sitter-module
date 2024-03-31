@@ -3,18 +3,22 @@
 set -u
 set -e
 
+# List of supported languages. Please keep this array sorted alphabetically for ease of maintenance
+# and readability.
 languages=(
     'bash'
+    'bison'
     'c'
     'c-sharp'
     'clojure'
     'cmake'
     'cpp'
     'css'
-    'scss'
+    'dart'
     'dockerfile'
     'elisp'
     'elixir'
+    'erlang'
     'glsl'
     'go'
     'gomod'
@@ -25,6 +29,7 @@ languages=(
     'javascript'
     'json'
     'julia'
+    'kotlin'
     'lua'
     'magik'
     'make'
@@ -36,22 +41,20 @@ languages=(
     'ruby'
     'rust'
     'scala'
-    'surface'
+    'scss'
+    'souffle'
     'sql'
+    'surface'
     'toml'
     'tsx'
     'typescript'
     'typst'
+    'vala'
     'verilog'
     'vhdl'
     'wgsl'
     'yaml'
-    'dart'
-    'souffle'
-    'kotlin'
     'zig'
-    'bison'
-    'erlang'
 )
 
 if [ -z "${JOBS:-}" ]
