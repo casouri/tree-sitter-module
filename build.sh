@@ -174,7 +174,9 @@ else
 fi
 
 ### Copy out
-if [ -z "${INSTALL_DIR+x}" ]; then
+
+# use default dist location if INSTALL_DIR is unset or empty.
+if [ -n "${INSTALL_DIR-}" ]; then
     dist_dir="${INSTALL_DIR}"
 else
     dist_dir="${topdir}/dist"
