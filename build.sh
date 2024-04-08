@@ -174,7 +174,7 @@ else
 fi
 
 ### Copy out
-if [[ -v INSTALL_DIR ]]; then
+if [ -z "${INSTALL_DIR+x}" ]; then
     dist_dir="${INSTALL_DIR}"
 else
     dist_dir="${topdir}/dist"
