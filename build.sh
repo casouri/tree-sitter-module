@@ -175,13 +175,13 @@ fi
 
 ### Copy out
 if [[ -n "$INSTALL_DIR" ]]; then
-    _install_dir="$INSTALL_DIR"
-    echo "Copying libtree-sitter-${lang}.${soext} to $_install_dir"
+    dist_dir="$INSTALL_DIR"
+    echo "Copying libtree-sitter-${lang}.${soext} to ${dist_dir}"
 else
-  _install_dir="${topdir}/dist"
+  dist_dir="${topdir}/dist"
 fi
 
-mkdir -p "$_install_dir"
-cp "libtree-sitter-${lang}.${soext}" "$_install_dir"
+mkdir -p "${dist_dir}"
+cp "libtree-sitter-${lang}.${soext}" "${dist_dir}"
 cd "${topdir}"
 rm -rf "${lang}"
