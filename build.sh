@@ -85,6 +85,9 @@ case "${lang}" in
     "perl")
         org="ganezdragon"
         ;;
+    "php")
+        sourcedir='php/src'
+        ;;
     "proto")
         org="mitchellh"
         ;;
