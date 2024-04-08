@@ -177,7 +177,7 @@ fi
 if [[ -v INSTALL_DIR ]]; then
     dist_dir="${INSTALL_DIR}"
 else
-  dist_dir="${topdir}/dist"
+    dist_dir="${topdir}/dist"
 fi
 
 echo "Copying libtree-sitter-${lang}.${soext} to ${dist_dir}"
