@@ -73,6 +73,9 @@ case "${lang}" in
     "lua")
         org="MunifTanjim"
         ;;
+    "magik")
+        org="krn-robin"
+        ;;
     "make")
         org="alemuller"
         ;;

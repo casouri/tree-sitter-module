@@ -31,6 +31,7 @@ languages=(
     'julia'
     'kotlin'
     'lua'
+    'magik'
     'make'
     'markdown'
     'org'
