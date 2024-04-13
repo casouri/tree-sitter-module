@@ -29,15 +29,14 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Build
         run: |
           ./batch.sh
           export platform=$(echo ${{ runner.os }} | awk '{print tolower($0)}')
           zip -r "libs-${platform}-x64.zip" dist
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           draft: true
-          files: |
-            libs-*.zip
+          files: libs-*.zip
