@@ -45,6 +45,9 @@ case "${lang}" in
     "dockerfile")
         org="camdencheek"
         ;;
+    "doxygen")
+        org="tree-sitter-grammars"
+        ;;
     "elisp")
         org="Wilfred"
         ;;
@@ -55,7 +58,7 @@ case "${lang}" in
         org="WhatsApp"
         ;;
     "glsl")
-        org="theHamsta"
+        org="tree-sitter-grammars"
         ;;
     "gomod")
         org="camdencheek"
@@ -71,16 +74,17 @@ case "${lang}" in
         org="fwcd"
         ;;
     "lua")
-        org="MunifTanjim"
+        org="tree-sitter-grammars"
         ;;
     "magik")
         org="krn-robin"
         ;;
     "make")
-        org="alemuller"
+        org="tree-sitter-grammars"
         ;;
     "markdown")
-        org="ikatyang"
+        org="tree-sitter-grammars"
+        sourcedir="tree-sitter-markdown/src"
         ;;
     "nix")
         org="nix-community"
@@ -98,7 +102,7 @@ case "${lang}" in
         org="mitchellh"
         ;;
     "scss")
-        org="serenadeai"
+        org="tree-sitter-grammars"
         ;;
     "souffle")
         org="chaosite"
@@ -111,7 +115,7 @@ case "${lang}" in
         org="connorlay"
         ;;
     "toml")
-        org="ikatyang"
+        org="tree-sitter-grammars"
         ;;
     "tsx")
         repo="tree-sitter-typescript"
@@ -136,7 +140,7 @@ case "${lang}" in
         org="mehmetoguzderin"
         ;;
     "yaml")
-        org="ikatyang"
+        org="tree-sitter-grammars"
         ;;
     "zig")
         org="maxxnino"

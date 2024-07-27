@@ -16,6 +16,7 @@ languages=(
     'css'
     'dart'
     'dockerfile'
+    'doxygen'
     'elisp'
     'elixir'
     'erlang'
