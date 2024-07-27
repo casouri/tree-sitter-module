@@ -34,6 +34,7 @@ languages=(
     'magik'
     'make'
     'markdown'
+    'nix'
     'org'
     'perl'
     'php'
