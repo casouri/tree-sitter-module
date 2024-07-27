@@ -82,6 +82,9 @@ case "${lang}" in
     "markdown")
         org="ikatyang"
         ;;
+    "nix")
+        org="nix-community"
+        ;;
     "org")
         org="milisims"
         ;;
