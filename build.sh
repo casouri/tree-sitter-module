@@ -29,6 +29,9 @@ branch=""
 # Please keep this case analysis sorted alphabetically for ease of maintenance and readability. Note
 # that you may want to add a corresponding entry to the `languages` array in the batch.sh script.
 case "${lang}" in
+    "ada")
+        org="briot"
+        ;;
     "bison")
         site="https://gitlab.com"
         org="btuin2"
@@ -63,6 +66,9 @@ case "${lang}" in
     "gomod")
         org="camdencheek"
         repo="tree-sitter-go-mod"
+        ;;
+    "gpr")
+        org="brownts"
         ;;
     "heex")
         org="phoenixframework"

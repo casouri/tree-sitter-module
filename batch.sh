@@ -6,6 +6,7 @@ set -e
 # List of supported languages. Please keep this array sorted alphabetically for ease of maintenance
 # and readability.
 languages=(
+    'ada'
     'bash'
     'bison'
     'c'
@@ -23,6 +24,7 @@ languages=(
     'glsl'
     'go'
     'gomod'
+    'gpr'
     'heex'
     'html'
     'janet-simple'
