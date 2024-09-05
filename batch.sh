@@ -6,6 +6,7 @@ set -e
 # List of supported languages. Please keep this array sorted alphabetically for ease of maintenance
 # and readability.
 languages=(
+    'ada'
     'bash'
     'bison'
     'c'
@@ -16,12 +17,14 @@ languages=(
     'css'
     'dart'
     'dockerfile'
+    'doxygen'
     'elisp'
     'elixir'
     'erlang'
     'glsl'
     'go'
     'gomod'
+    'gpr'
     'heex'
     'html'
     'janet-simple'
@@ -34,6 +37,7 @@ languages=(
     'magik'
     'make'
     'markdown'
+    'nix'
     'org'
     'perl'
     'php'

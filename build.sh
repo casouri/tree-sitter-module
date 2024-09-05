@@ -29,6 +29,9 @@ branch=""
 # Please keep this case analysis sorted alphabetically for ease of maintenance and readability. Note
 # that you may want to add a corresponding entry to the `languages` array in the batch.sh script.
 case "${lang}" in
+    "ada")
+        org="briot"
+        ;;
     "bison")
         site="https://gitlab.com"
         org="btuin2"
@@ -48,6 +51,9 @@ case "${lang}" in
     "dockerfile")
         org="camdencheek"
         ;;
+    "doxygen")
+        org="tree-sitter-grammars"
+        ;;
     "elisp")
         org="Wilfred"
         ;;
@@ -58,11 +64,14 @@ case "${lang}" in
         org="WhatsApp"
         ;;
     "glsl")
-        org="theHamsta"
+        org="tree-sitter-grammars"
         ;;
     "gomod")
         org="camdencheek"
         repo="tree-sitter-go-mod"
+        ;;
+    "gpr")
+        org="brownts"
         ;;
     "heex")
         org="phoenixframework"
@@ -74,16 +83,20 @@ case "${lang}" in
         org="fwcd"
         ;;
     "lua")
-        org="MunifTanjim"
+        org="tree-sitter-grammars"
         ;;
     "magik")
         org="krn-robin"
         ;;
     "make")
-        org="alemuller"
+        org="tree-sitter-grammars"
         ;;
     "markdown")
-        org="ikatyang"
+        org="tree-sitter-grammars"
+        sourcedir="tree-sitter-markdown/src"
+        ;;
+    "nix")
+        org="nix-community"
         ;;
     "org")
         org="milisims"
@@ -98,7 +111,7 @@ case "${lang}" in
         org="mitchellh"
         ;;
     "scss")
-        org="serenadeai"
+        org="tree-sitter-grammars"
         ;;
     "souffle")
         org="chaosite"
@@ -111,7 +124,7 @@ case "${lang}" in
         org="connorlay"
         ;;
     "toml")
-        org="ikatyang"
+        org="tree-sitter-grammars"
         ;;
     "tsx")
         repo="tree-sitter-typescript"
@@ -136,7 +149,7 @@ case "${lang}" in
         org="mehmetoguzderin"
         ;;
     "yaml")
-        org="ikatyang"
+        org="tree-sitter-grammars"
         ;;
     "zig")
         org="maxxnino"
