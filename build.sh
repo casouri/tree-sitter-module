@@ -39,6 +39,9 @@ case "${lang}" in
     "clojure")
         org="sogaiu"
         ;;
+    "cpp")
+        branch="v0.22.0"
+        ;;
     "cmake")
         org="uyha"
         ;;
