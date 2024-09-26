@@ -162,7 +162,7 @@ then
        --depth 1 --quiet "${lang}"
 else
     git clone "${site}/${org}/${repo}.git" \
-        --single-branch --branch "${branch}" --quiet "${lang}"
+        --single-branch --depth 1 --branch "${branch}" --quiet "${lang}"
 fi
 # We have to go into the source directory to compile, because some
 # C files refer to files like "../../common/scanner.h".

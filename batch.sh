@@ -25,6 +25,7 @@ languages=(
     'go'
     'gomod'
     'gpr'
+    'haskell'
     'heex'
     'html'
     'janet-simple'
