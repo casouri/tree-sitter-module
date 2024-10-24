@@ -113,6 +113,9 @@ case "${lang}" in
     "scss")
         org="tree-sitter-grammars"
         ;;
+    "sdml")
+        org="sdm-lang"
+        ;;
     "souffle")
         org="chaosite"
         ;;

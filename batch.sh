@@ -48,6 +48,7 @@ languages=(
     'rust'
     'scala'
     'scss'
+    'sdml'
     'souffle'
     'sql'
     'surface'
