@@ -82,6 +82,9 @@ case "${lang}" in
     "janet-simple")
         org="sogaiu"
         ;;
+    "jq")
+        org="nverno"
+        ;;
     "kotlin")
         org="fwcd"
         ;;
