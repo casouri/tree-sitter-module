@@ -36,6 +36,9 @@ case "${lang}" in
         site="https://gitlab.com"
         org="btuin2"
         ;;
+    "c3")
+        org="c3lang"
+        ;;
     "clojure")
         org="sogaiu"
         ;;

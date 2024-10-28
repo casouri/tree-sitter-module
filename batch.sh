@@ -10,6 +10,7 @@ languages=(
     'bash'
     'bison'
     'c'
+    'c3'
     'c-sharp'
     'clojure'
     'cmake'
