@@ -102,6 +102,11 @@ case "${lang}" in
         org="tree-sitter-grammars"
         sourcedir="tree-sitter-markdown/src"
         ;;
+    "markdown-inline")
+        org="tree-sitter-grammars"
+        repo="tree-sitter-markdown"
+        sourcedir="tree-sitter-markdown-inline/src"
+        ;;
     "nix")
         org="nix-community"
         ;;
