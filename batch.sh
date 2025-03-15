@@ -25,6 +25,7 @@ languages=(
     'glsl'
     'go'
     'gomod'
+    'gowork'
     'gpr'
     'haskell'
     'heex'

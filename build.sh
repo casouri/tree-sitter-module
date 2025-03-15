@@ -73,6 +73,10 @@ case "${lang}" in
         org="camdencheek"
         repo="tree-sitter-go-mod"
         ;;
+    "gowork")
+        org="omertuc"
+        repo="tree-sitter-go-work"
+        ;;
     "gpr")
         org="brownts"
         ;;
