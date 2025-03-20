@@ -40,6 +40,7 @@ languages=(
     'magik'
     'make'
     'markdown'
+    'markdown-inline'
     'nix'
     'org'
     'perl'
