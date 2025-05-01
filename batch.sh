@@ -33,6 +33,7 @@ languages=(
     'janet-simple'
     'java'
     'javascript'
+    'jsdoc'
     'json'
     'julia'
     'kotlin'
