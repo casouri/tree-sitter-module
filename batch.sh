@@ -16,6 +16,7 @@ languages=(
     'cmake'
     'cpp'
     'css'
+    'cylc'
     'dart'
     'dockerfile'
     'doxygen'

@@ -48,6 +48,9 @@ case "${lang}" in
     "cmake")
         org="uyha"
         ;;
+    "cylc")
+        org="elliotfontaine"
+        ;;
     "dart")
         org="ast-grep"
         ;;
