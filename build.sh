@@ -32,6 +32,9 @@ case "${lang}" in
     "ada")
         org="briot"
         ;;
+    "astro")
+        org="virchau13"
+        ;;
     "bison")
         site="https://gitlab.com"
         org="btuin2"
@@ -140,6 +143,9 @@ case "${lang}" in
         ;;
     "surface")
         org="connorlay"
+        ;;
+    "svelte")
+        org="tree-sitter-grammars"
         ;;
     "toml")
         org="tree-sitter-grammars"
