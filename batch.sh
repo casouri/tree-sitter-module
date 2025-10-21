@@ -7,6 +7,7 @@ set -e
 # and readability.
 languages=(
     'ada'
+    'astro'
     'bash'
     'bison'
     'c'
@@ -57,6 +58,7 @@ languages=(
     'souffle'
     'sql'
     'surface'
+    'svelte'
     'toml'
     'tsx'
     'typescript'
