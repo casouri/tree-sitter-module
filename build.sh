@@ -145,7 +145,7 @@ case "${lang}" in
         org="connorlay"
         ;;
     "svelte")
-        org="tree-sitter-grammars"
+        org="Himujjal"
         ;;
     "toml")
         org="tree-sitter-grammars"
