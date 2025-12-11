@@ -71,6 +71,11 @@ languages=(
     'zig'
 )
 
+requested_languages=("$@")
+if (( ${#requested_languages[@]} != 0 )); then
+    languages=("${requested_languages[@]}")
+fi
+
 if [ -z "${JOBS:-}" ]
 then
     for language in "${languages[@]}"

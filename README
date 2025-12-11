@@ -26,3 +26,7 @@ a PR.
 You can enable parallel build with the JOBS variable, like this:
 
     JOBS=8 ./batch.sh
+
+You can also enable parallel build for a subset of pre-defined languages:
+
+    JOBS=8 ./batch.sh c elisp rust zig
