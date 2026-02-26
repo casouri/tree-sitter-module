@@ -3,71 +3,20 @@
 set -u
 set -e
 
-# List of supported languages. Please keep this array sorted alphabetically for ease of maintenance
-# and readability.
-languages=(
-    'ada'
-    'bash'
-    'bison'
-    'c'
-    'c-sharp'
-    'clojure'
-    'cmake'
-    'cpp'
-    'css'
-    'dart'
-    'dockerfile'
-    'doxygen'
-    'elisp'
-    'elixir'
-    'erlang'
-    'glsl'
-    'go'
-    'gomod'
-    'gpr'
-    'heex'
-    'html'
-    'janet-simple'
-    'java'
-    'javascript'
-    'json'
-    'julia'
-    'kotlin'
-    'lua'
-    'magik'
-    'make'
-    'markdown'
-    'nix'
-    'org'
-    'perl'
-    'php'
-    'proto'
-    'python'
-    'ruby'
-    'rust'
-    'scala'
-    'scss'
-    'souffle'
-    'sql'
-    'surface'
-    'toml'
-    'tsx'
-    'typescript'
-    'typst'
-    'vala'
-    'verilog'
-    'vhdl'
-    'wgsl'
-    'yaml'
-    'zig'
-)
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+# Load supported languages from shared file
+languages=()
+while IFS= read -r lang || [[ -n "$lang" ]]; do
+    [[ -n "$lang" ]] && languages+=("$lang")
+done < "${SCRIPT_DIR}/languages.txt"
 
 if [ -z "${JOBS:-}" ]
 then
     for language in "${languages[@]}"
     do
-        ./build.sh "${language}"
+        "${SCRIPT_DIR}/build.sh" "${language}"
     done
 else
-    printf "%s\n" "${languages[@]}" | xargs -P"${JOBS}" -n1 ./build.sh
+    printf "%s\n" "${languages[@]}" | xargs -P"${JOBS}" -n1 "${SCRIPT_DIR}/build.sh"
 fi
