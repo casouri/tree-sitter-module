@@ -26,3 +26,46 @@ a PR.
 You can enable parallel build with the JOBS variable, like this:
 
     JOBS=8 ./batch.sh
+
+
+---
+NEW
+---
+
+I vibe-coded a convenient CLI for building and installing grammars and
+managing versions. The CLI still uses build.sh and batch.sh to do most
+of the work.
+
+> ./langman.py --help
+usage: langman.py [-h] {build,install,version} ...
+
+Tree-sitter grammar builder and installer
+
+positional arguments:
+  {build,install,version}
+    build               Build grammar(s)
+    install             Build and install grammar(s)
+    version             Show installed version
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+Examples:
+  langman.py build python
+  langman.py build --version v0.23.2 python
+  langman.py build                    # Build all languages
+  langman.py install python
+  langman.py install                  # Install all languages
+  langman.py version python
+
+Environment:
+  INSTALL_DIR    Override default install directory (~/.emacs.d/tree-sitter)
+
+Caching:
+  Versioned builds (--version) are cached and reused on subsequent builds.
+  HEAD builds (no --version) always rebuild from the latest commit.
+
+Note:
+  On mac and linux, version is stored in the grammar file using xattr,
+  on windows, the version is stored in a separate version file
+  alongside the grammar file.

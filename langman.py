@@ -292,6 +292,11 @@ Environment:
 Caching:
   Versioned builds (--version) are cached and reused on subsequent builds.
   HEAD builds (no --version) always rebuild from the latest commit.
+
+Note:
+  On mac and linux, version is stored in the grammar file using xattr,
+  on windows, the version is stored in a separate version file
+  alongside the grammar file.
 """,
     )
 
@@ -300,7 +305,7 @@ Caching:
     # Build command
     build_parser = subparsers.add_parser("build", help="Build grammar(s)")
     build_parser.add_argument(
-        "--version", "-v",
+        "--version",
         help="Specify version (git tag or commit)",
     )
     build_parser.add_argument(
@@ -312,7 +317,7 @@ Caching:
     # Install command
     install_parser = subparsers.add_parser("install", help="Build and install grammar(s)")
     install_parser.add_argument(
-        "--version", "-v",
+        "--version",
         help="Specify version (git tag or commit)",
     )
     install_parser.add_argument(
@@ -333,12 +338,6 @@ Caching:
 
 def main() -> int:
     """Main entry point."""
-    if len(sys.argv) < 2:
-        print("Usage: langman.py <command> [options] [language]", file=sys.stderr)
-        print("Commands: build, install, version", file=sys.stderr)
-        print("Use --help for more information.", file=sys.stderr)
-        return 1
-
     args = parse_args(sys.argv[1:])
 
     try:
