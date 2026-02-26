@@ -3,8 +3,28 @@
 set -u
 set -e
 
-lang=$1
 topdir="$PWD"
+
+# Parse arguments
+version=""
+lang=""
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --version|-v)
+            version="$2"
+            shift 2
+            ;;
+        *)
+            lang="$1"
+            shift
+            ;;
+    esac
+done
+
+if [ -z "$lang" ]; then
+    echo "Usage: build.sh [--version VERSION] LANGUAGE" >&2
+    exit 1
+fi
 
 if [ "$(uname)" == "Darwin" ]
 then
@@ -180,13 +200,26 @@ case "${lang}" in
         ;;
 esac
 
-if [ -z "$branch" ]
-then
+if [ -n "$version" ]; then
+    # Blobless clone, then checkout version
+    git clone "${site}/${org}/${repo}.git" --filter=blob:none --quiet "${lang}"
+    git -C "${lang}" checkout "$version" --quiet
+elif [ -z "$branch" ]; then
     git clone "${site}/${org}/${repo}.git" \
        --depth 1 --quiet "${lang}"
 else
     git clone "${site}/${org}/${repo}.git" \
         --single-branch --depth 1 --branch "${branch}" --quiet "${lang}"
+fi
+
+# Get commit SHA
+commit_sha=$(git -C "${lang}" rev-parse --short HEAD)
+
+# Determine version string
+if [ -n "$version" ]; then
+    version_string="$version"
+else
+    version_string="HEAD@${commit_sha}"
 fi
 # We have to go into the source directory to compile, because some
 # C files refer to files like "../../common/scanner.h".
@@ -227,3 +260,6 @@ mkdir -p "${dist_dir}"
 cp "libtree-sitter-${lang}.${soext}" "${dist_dir}"
 cd "${topdir}"
 rm -rf "${lang}"
+
+# Print version (parseable by langman.py)
+echo "VERSION:${version_string}"

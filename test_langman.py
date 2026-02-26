@@ -62,63 +62,6 @@ class TestPlatformDetection:
         assert langman.detect_xattr_method() == 'fallback'
 
 
-# --- Language Config Tests ---
-class TestLangConfig:
-    def test_default_config(self):
-        cfg = langman.get_lang_config('python')
-        assert cfg.name == 'python'
-        assert cfg.site == 'https://github.com'
-        assert cfg.org == 'tree-sitter'
-        assert cfg.repo is None  # uses default tree-sitter-python
-        assert cfg.source_dir == 'src'
-        assert cfg.branch is None
-
-    def test_custom_org(self):
-        cfg = langman.get_lang_config('ada')
-        assert cfg.org == 'briot'
-
-    def test_custom_site(self):
-        cfg = langman.get_lang_config('bison')
-        assert cfg.site == 'https://gitlab.com'
-        assert cfg.org == 'btuin2'
-
-    def test_custom_repo(self):
-        cfg = langman.get_lang_config('gomod')
-        assert cfg.org == 'camdencheek'
-        assert cfg.repo == 'tree-sitter-go-mod'
-
-    def test_custom_source_dir(self):
-        cfg = langman.get_lang_config('markdown')
-        assert cfg.source_dir == 'tree-sitter-markdown/src'
-
-    def test_custom_branch(self):
-        cfg = langman.get_lang_config('sql')
-        assert cfg.org == 'DerekStride'
-        assert cfg.branch == 'gh-pages'
-
-    def test_tsx_config(self):
-        cfg = langman.get_lang_config('tsx')
-        assert cfg.org == 'tree-sitter'
-        assert cfg.repo == 'tree-sitter-typescript'
-        assert cfg.source_dir == 'tsx/src'
-
-    def test_typescript_config(self):
-        cfg = langman.get_lang_config('typescript')
-        assert cfg.source_dir == 'typescript/src'
-
-    def test_effective_repo_default(self):
-        cfg = langman.get_lang_config('python')
-        assert cfg.effective_repo == 'tree-sitter-python'
-
-    def test_effective_repo_custom(self):
-        cfg = langman.get_lang_config('gomod')
-        assert cfg.effective_repo == 'tree-sitter-go-mod'
-
-    def test_clone_url(self):
-        cfg = langman.get_lang_config('python')
-        assert cfg.clone_url == 'https://github.com/tree-sitter/tree-sitter-python.git'
-
-
 class TestLoadLanguages:
     def test_load_languages_returns_list(self):
         languages = langman.load_languages()
@@ -266,34 +209,27 @@ class TestBuild:
     @patch('langman.is_cached', return_value=False)
     @patch('langman.subprocess.run')
     @patch('langman.set_version')
-    @patch('tempfile.mkdtemp')
-    @patch('shutil.rmtree')
-    def test_build_clones_repo(self, mock_rmtree, mock_mkdtemp, mock_set_version,
-                               mock_run, mock_is_cached, mock_ext, tmp_dirs):
+    def test_build_calls_build_sh(self, mock_set_version, mock_run, mock_is_cached, mock_ext, tmp_dirs):
         with patch.object(langman, 'SCRIPT_DIR', tmp_dirs['dist'].parent):
             with patch.object(langman, 'DIST_DIR', tmp_dirs['dist']):
-                mock_mkdtemp.return_value = str(tmp_dirs['cache'] / 'build')
-                build_dir = tmp_dirs['cache'] / 'build'
-                build_dir.mkdir(parents=True)
+                # Create mock artifact that build.sh would create
+                artifact = tmp_dirs['dist'] / 'libtree-sitter-python.dylib'
+                artifact.touch()
 
-                # Create mock files that would be created during build
-                lang_dir = build_dir / 'python'
-                src_dir = lang_dir / 'src'
-                src_dir.mkdir(parents=True)
-                (src_dir / 'parser.c').touch()
-                (src_dir / 'libtree-sitter-python.dylib').touch()
+                # Mock build.sh output
+                mock_run.return_value = MagicMock(
+                    returncode=0,
+                    stdout='Building python\nVERSION:HEAD@abc123\n'
+                )
 
-                mock_run.return_value = MagicMock(returncode=0, stdout='abc123\n')
+                langman.build_single('python')
 
-                try:
-                    langman.build_single('python')
-                except Exception:
-                    pass  # May fail due to mocking, but we verify git clone was called
-
-                # Check that git clone was attempted
-                clone_calls = [c for c in mock_run.call_args_list
-                               if c[0][0][0] == 'git' and c[0][0][1] == 'clone']
-                assert len(clone_calls) > 0
+                # Check that build.sh was called
+                build_calls = [c for c in mock_run.call_args_list
+                               if 'build.sh' in str(c[0][0][0])]
+                assert len(build_calls) > 0
+                # Verify the command includes the language
+                assert 'python' in build_calls[0][0][0]
 
     @patch('langman.detect_extension', return_value='dylib')
     @patch('langman.is_cached', return_value=True)

@@ -8,8 +8,6 @@ import platform
 import shutil
 import subprocess
 import sys
-import tempfile
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
@@ -18,60 +16,6 @@ SCRIPT_DIR = Path(__file__).parent.resolve()
 CACHE_DIR = SCRIPT_DIR / ".cache"
 DIST_DIR = SCRIPT_DIR / "dist"
 DEFAULT_INSTALL_DIR = Path.home() / ".emacs.d" / "tree-sitter"
-
-# --- Language Configurations ---
-# Dict of overrides, default is github.com/tree-sitter/tree-sitter-{lang}
-LANG_CONFIGS: dict[str, dict] = {
-    "ada": {"org": "briot"},
-    "bison": {"site": "https://gitlab.com", "org": "btuin2"},
-    "clojure": {"org": "sogaiu"},
-    "cmake": {"org": "uyha"},
-    "dart": {"org": "ast-grep"},
-    "dockerfile": {"org": "camdencheek"},
-    "doxygen": {"org": "tree-sitter-grammars"},
-    "elisp": {"org": "Wilfred"},
-    "elixir": {"org": "elixir-lang"},
-    "erlang": {"org": "WhatsApp"},
-    "glsl": {"org": "tree-sitter-grammars"},
-    "gomod": {"org": "camdencheek", "repo": "tree-sitter-go-mod"},
-    "gpr": {"org": "brownts"},
-    "heex": {"org": "phoenixframework"},
-    "janet-simple": {"org": "sogaiu"},
-    "kotlin": {"org": "fwcd"},
-    "lua": {"org": "tree-sitter-grammars"},
-    "magik": {"org": "krn-robin"},
-    "make": {"org": "tree-sitter-grammars"},
-    "markdown": {
-        "org": "tree-sitter-grammars",
-        "repo": "tree-sitter-markdown",
-        "source_dir": "tree-sitter-markdown/src",
-    },
-    "markdown_inline": {
-        "org": "tree-sitter-grammars",
-        "repo": "tree-sitter-markdown",
-        "source_dir": "tree-sitter-markdown-inline/src",
-    },
-    "nix": {"org": "nix-community"},
-    "org": {"org": "milisims"},
-    "perl": {"org": "ganezdragon"},
-    "php": {"source_dir": "php/src"},
-    "proto": {"org": "mitchellh"},
-    "scss": {"org": "tree-sitter-grammars"},
-    "souffle": {"org": "chaosite"},
-    "sql": {"org": "DerekStride", "branch": "gh-pages"},
-    "surface": {"org": "connorlay"},
-    "toml": {"org": "tree-sitter-grammars"},
-    "tsx": {"repo": "tree-sitter-typescript", "source_dir": "tsx/src"},
-    "typescript": {"source_dir": "typescript/src"},
-    "typst": {"org": "uben0"},
-    "vala": {"org": "vala-lang"},
-    "verilog": {"org": "gmlarumbe"},
-    "vhdl": {"org": "alemuller"},
-    "wgsl": {"org": "mehmetoguzderin"},
-    "yaml": {"org": "tree-sitter-grammars"},
-    "zig": {"org": "maxxnino"},
-}
-
 
 # --- Platform Detection ---
 def detect_extension() -> str:
@@ -153,42 +97,6 @@ def has_version(path: Path) -> bool:
     return get_version(path) is not None
 
 
-# --- Language Config ---
-@dataclass
-class LangConfig:
-    """Configuration for a tree-sitter language grammar."""
-
-    name: str
-    site: str = "https://github.com"
-    org: str = "tree-sitter"
-    repo: Optional[str] = None
-    source_dir: str = "src"
-    branch: Optional[str] = None
-
-    @property
-    def effective_repo(self) -> str:
-        """Get the actual repository name (default: tree-sitter-{name})."""
-        return self.repo if self.repo else f"tree-sitter-{self.name}"
-
-    @property
-    def clone_url(self) -> str:
-        """Get the full clone URL."""
-        return f"{self.site}/{self.org}/{self.effective_repo}.git"
-
-
-def get_lang_config(lang: str) -> LangConfig:
-    """Get the configuration for a language."""
-    overrides = LANG_CONFIGS.get(lang, {})
-    return LangConfig(
-        name=lang,
-        site=overrides.get("site", "https://github.com"),
-        org=overrides.get("org", "tree-sitter"),
-        repo=overrides.get("repo"),
-        source_dir=overrides.get("source_dir", "src"),
-        branch=overrides.get("branch"),
-    )
-
-
 def load_languages() -> list[str]:
     """Load the list of supported languages from languages.txt."""
     languages_file = SCRIPT_DIR / "languages.txt"
@@ -257,7 +165,7 @@ def add_to_cache(lang: str, version: str, artifact: Path) -> None:
 # --- Build ---
 def build_single(lang: str, version: Optional[str] = None) -> Path:
     """
-    Build a single language grammar.
+    Build a single language grammar by calling build.sh.
     Returns the path to the built artifact in dist/.
     """
     art_name = artifact_name(lang)
@@ -269,107 +177,37 @@ def build_single(lang: str, version: Optional[str] = None) -> Path:
         if result:
             return result
 
-    print(f"Building {lang}" + (f" ({version})" if version else ""))
+    # Build using build.sh
+    cmd = [str(SCRIPT_DIR / "build.sh"), lang]
+    if version:
+        cmd = [str(SCRIPT_DIR / "build.sh"), "--version", version, lang]
 
-    # Get language configuration
-    cfg = get_lang_config(lang)
+    env = {**os.environ, "INSTALL_DIR": str(DIST_DIR)}
+    result = subprocess.run(cmd, capture_output=True, text=True, check=True, env=env)
 
-    # Create temp directory for build
-    build_dir = Path(tempfile.mkdtemp())
-    original_cwd = os.getcwd()
+    # Print build output (excluding VERSION line)
+    for line in result.stdout.splitlines():
+        if not line.startswith("VERSION:"):
+            print(line)
 
-    try:
-        os.chdir(build_dir)
+    # Parse version from output
+    version_string = None
+    for line in result.stdout.splitlines():
+        if line.startswith("VERSION:"):
+            version_string = line.split(":", 1)[1]
+            break
 
-        # Clone repository
-        if version:
-            # Full clone for versioned build, then checkout
-            subprocess.run(
-                ["git", "clone", cfg.clone_url, "--quiet", lang],
-                check=True,
-            )
-            subprocess.run(
-                ["git", "-C", lang, "checkout", version, "--quiet"],
-                check=True,
-            )
-        elif cfg.branch:
-            # Clone specific branch
-            subprocess.run(
-                [
-                    "git", "clone", cfg.clone_url,
-                    "--single-branch", "--branch", cfg.branch,
-                    "--quiet", lang,
-                ],
-                check=True,
-            )
-        else:
-            # Shallow clone of default branch
-            subprocess.run(
-                ["git", "clone", cfg.clone_url, "--depth", "1", "--quiet", lang],
-                check=True,
-            )
-
-        # Get commit SHA for version string
-        result = subprocess.run(
-            ["git", "-C", lang, "rev-parse", "--short", "HEAD"],
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-        commit_sha = result.stdout.strip()
-
-        # Navigate to source directory
-        src_dir = build_dir / lang / cfg.source_dir
-        os.chdir(src_dir)
-
-        # Build: compile C files
-        subprocess.run(["cc", "-fPIC", "-c", "-I.", "parser.c"], check=True)
-
-        # Compile scanner if present
-        has_scanner_c = (src_dir / "scanner.c").exists()
-        has_scanner_cc = (src_dir / "scanner.cc").exists()
-
-        if has_scanner_c:
-            subprocess.run(["cc", "-fPIC", "-c", "-I.", "scanner.c"], check=True)
-        if has_scanner_cc:
-            subprocess.run(["c++", "-fPIC", "-I.", "-c", "scanner.cc"], check=True)
-
-        # Link
-        if has_scanner_cc:
-            subprocess.run(
-                ["c++", "-fPIC", "-shared"] + list(src_dir.glob("*.o")) + ["-o", art_name],
-                check=True,
-            )
-        else:
-            subprocess.run(
-                ["cc", "-fPIC", "-shared"] + list(src_dir.glob("*.o")) + ["-o", art_name],
-                check=True,
-            )
-
-        # Create version string
-        version_string = version if version else f"HEAD@{commit_sha}"
-
-        # Set version attribute on artifact
-        built_artifact = src_dir / art_name
-        set_version(built_artifact, version_string)
-
-        # Copy to dist
-        DIST_DIR.mkdir(parents=True, exist_ok=True)
-        dist_artifact = DIST_DIR / art_name
-        shutil.copy2(built_artifact, dist_artifact)
+    # Set version attribute on the built artifact
+    dist_artifact = DIST_DIR / art_name
+    if version_string:
         set_version(dist_artifact, version_string)
-        print(f"Copied {art_name} to {DIST_DIR}")
 
-        # Cache if versioned
-        if version:
-            add_to_cache(lang, version, built_artifact)
-            print(f"Cached {art_name} at {cache_path(lang, version)}")
+    # Cache versioned builds
+    if version and version_string:
+        add_to_cache(lang, version, dist_artifact)
+        print(f"Cached {art_name} at {cache_path(lang, version)}")
 
-        return dist_artifact
-
-    finally:
-        os.chdir(original_cwd)
-        shutil.rmtree(build_dir, ignore_errors=True)
+    return dist_artifact
 
 
 def build_all() -> None:
