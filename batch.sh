@@ -71,6 +71,12 @@ languages=(
     'zig'
 )
 
+# Handle --list option (for langman.py)
+if [ "${1:-}" = "--list" ]; then
+    printf "%s\n" "${languages[@]}"
+    exit 0
+fi
+
 if [ -z "${JOBS:-}" ]
 then
     for language in "${languages[@]}"

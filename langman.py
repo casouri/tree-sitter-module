@@ -98,15 +98,14 @@ def has_version(path: Path) -> bool:
 
 
 def load_languages() -> list[str]:
-    """Load the list of supported languages from languages.txt."""
-    languages_file = SCRIPT_DIR / "languages.txt"
-    languages = []
-    with open(languages_file) as f:
-        for line in f:
-            lang = line.strip()
-            if lang:
-                languages.append(lang)
-    return languages
+    """Load the list of supported languages from batch.sh."""
+    result = subprocess.run(
+        [str(SCRIPT_DIR / "batch.sh"), "--list"],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    return [lang.strip() for lang in result.stdout.splitlines() if lang.strip()]
 
 
 # --- Artifact Naming ---
