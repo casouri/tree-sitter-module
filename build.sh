@@ -92,6 +92,9 @@ case "${lang}" in
     "erlang")
         org="WhatsApp"
         ;;
+    "gdscript")
+        org="PrestonKnopp"
+        ;;
     "glsl")
         org="tree-sitter-grammars"
         ;;

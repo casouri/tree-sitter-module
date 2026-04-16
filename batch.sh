@@ -24,6 +24,7 @@ languages=(
     'elisp'
     'elixir'
     'erlang'
+    'gdscript'
     'glsl'
     'go'
     'gomod'
