@@ -139,6 +139,10 @@ case "${lang}" in
     "nix")
         org="nix-community"
         ;;
+    "odin")
+        org="tree-sitter-grammars"
+        repo="tree-sitter-odin"
+        ;;
     "org")
         org="milisims"
         ;;
